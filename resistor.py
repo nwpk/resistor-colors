@@ -1,6 +1,7 @@
 # My first working python program (v2)
 # Converts Resistor Ohmic Values to Color Codes
 # start coded in May 11, 2020
+# pushed to github May 24, 2020
 # by AJ Casugod
 
 
