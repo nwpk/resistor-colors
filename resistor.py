@@ -11,8 +11,7 @@ from itertools import zip_longest
 from tabulate import tabulate
 
 
-file = open(
-    r'C:\Users\User\Desktop\resistor\resistor_input.csv', newline='')
+file = open('resistor_input.csv', newline='')
 reader = csv.reader(file)
 
 header = next(reader)  # The firstline is the header
@@ -34,48 +33,14 @@ for column in reader:
         pass
 
 
-color_tolerance = {
-    10      :   'silver'    ,
-    5       :   'gold'      ,
-    1       :   'brown'     ,
-    2       :   'red'       ,
-    0.5     :   'green'     ,
-    0.25    :   'blue'      ,
-    0.1     :   'violet'    ,
-    20      :   'none'      }
+# Identify true ohmic values then store to resistor_numeric_value
+# Identify the significant digits
 digitcode = {
     'kilo'  :   3   ,
     'mega'  :   6   ,
     'r'     :   0   ,
     'k'     :   3   ,
     'm'     :   6   }
-color_significant_digits = {
-    0   :     'black'     ,
-    1   :     'brown'     ,
-    2   :     'red'       ,
-    3   :     'orange'    ,
-    4   :     'yellow'    ,
-    5   :     'green'     ,
-    6   :     'blue'      ,
-    7   :     'violet'    ,
-    8   :     'grey'      ,
-    9   :     'white'     }
-color_multiplier = {
-    -2  :     'silver'   ,
-    -1  :     'gold'     ,
-    0   :     'black'    ,
-    1   :     'brown'    ,
-    2   :     'red'      ,
-    3   :     'orange'   ,
-    4   :     'yellow'   ,
-    5   :     'green'    ,
-    6   :     'blue'     ,
-    7   :     'violet'   ,
-    8   :     'grey'     ,
-    9   :     'white'    }
-
-# Identify true ohmic values then store to resistor_numeric_value
-# Identify the significant digits
 significant = []
 resistor_numeric_value = []
 for i in r_value:
@@ -98,6 +63,17 @@ for i in r_value:
     significant.append(y)
 
 # Identify band colors for the significant digits
+color_significant_digits = {
+    0   :     'black'     ,
+    1   :     'brown'     ,
+    2   :     'red'       ,
+    3   :     'orange'    ,
+    4   :     'yellow'    ,
+    5   :     'green'     ,
+    6   :     'blue'      ,
+    7   :     'violet'    ,
+    8   :     'grey'      ,
+    9   :     'white'     }
 significant1 = []
 significant2 = []
 significant3 = []
@@ -110,12 +86,34 @@ for i in significant:
         significant3.append('')
 
 # Identify band color for the multiplier
+color_multiplier = {
+    -2  :     'silver'   ,
+    -1  :     'gold'     ,
+    0   :     'black'    ,
+    1   :     'brown'    ,
+    2   :     'red'      ,
+    3   :     'orange'   ,
+    4   :     'yellow'   ,
+    5   :     'green'    ,
+    6   :     'blue'     ,
+    7   :     'violet'   ,
+    8   :     'grey'     ,
+    9   :     'white'    }
 multiplier = []
 for sig, val in zip(significant, resistor_numeric_value):
     x = m.log10(val/int(sig))
     multiplier.append(color_multiplier.get(x))
 
 # Identify band color for the tolerance
+color_tolerance = {
+    10      :   'silver'    ,
+    5       :   'gold'      ,
+    1       :   'brown'     ,
+    2       :   'red'       ,
+    0.5     :   'green'     ,
+    0.25    :   'blue'      ,
+    0.1     :   'violet'    ,
+    20      :   'none'      }
 tolerance = []
 for i in r_tolerance:
     tolerance.append(color_tolerance.get(float(i)))
